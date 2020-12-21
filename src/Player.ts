@@ -8,7 +8,7 @@ export class Player {
     y: 10,
   };
 
-  private currentDirection: Direction | null = null;
+  private facingDirection: Direction | null = null;
 
   /**
    * Holds in which direction the player is facing
@@ -22,12 +22,16 @@ export class Player {
 
   trail: XYPosition[] = [];
 
-  moveDirection = (direction: Direction | null): void => {
-    if (direction === null || direction === this.currentDirection) {
+  changeFacingDirection = (direction: Direction | null): void => {
+    if (direction === null || direction === this.facingDirection) {
       return;
     }
 
-    this.currentDirection = direction;
+    if (!this.isDirectionChangePossible(direction)) {
+      return;
+    }
+
+    this.facingDirection = direction;
 
     // TODO check if it is possible to change to the desired direction
     switch (direction) {
@@ -50,6 +54,20 @@ export class Player {
       default:
         break;
     }
+  };
+
+  private isDirectionChangePossible = (direction: Direction) => {
+    const { facingDirection: currentDirection } = this;
+
+    if (currentDirection === null) {
+      return true;
+    }
+
+    if (direction === Direction.Up || direction === Direction.Down) {
+      return currentDirection === Direction.Left || currentDirection === Direction.Right;
+    }
+
+    return currentDirection === Direction.Up || currentDirection === Direction.Down;
   };
 
   moveOffset = (gridSize: number): XYPosition => {

@@ -8,15 +8,14 @@ const intervalMs = 1000 / 9;
 export default function game(): void {
   const canvasEl = document.getElementById('gc') as HTMLCanvasElement;
 
-  document.addEventListener('keydown', keyPressed);
-
-  // TODO should be possible to increase the game speed by changing the interval value
-  setInterval(gameLoop, intervalMs);
-
   const stage = new Stage(canvasEl);
   const player = new Player();
   const item = new Item();
   item.moveRandom(stage.gridSize);
+
+  // TODO should be possible to increase the game speed by changing the interval value
+  setInterval(gameLoop, intervalMs);
+  document.addEventListener('keydown', keyPressed);
 
   function gameLoop() {
     stage.clear();
@@ -47,6 +46,6 @@ export default function game(): void {
 
   function keyPressed(evt: KeyboardEvent) {
     const direction = eventCodeToDirection(evt.key ?? evt.code);
-    player.moveDirection(direction);
+    player.changeFacingDirection(direction);
   }
 }
