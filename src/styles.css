@@ -1,14 +1,16 @@
 .app-main {
   min-height: 99.9vh;
-  max-height: 99.9vh;
+  position: relative;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  position: relative;
+  flex-direction: column;
 }
-/*
-.app-canvas {
+
+.canvas-wrapper {
   flex: 1 1 auto;
-} */
+}
+
+.app-canvas {
+  margin: 0 auto;
+  display: block;
+}

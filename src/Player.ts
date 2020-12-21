@@ -1,7 +1,7 @@
 import { Direction, OffsetDirection } from './Direction';
 
 export class Player {
-  static INITIAL_TAIL_SIZE = 5;
+  static readonly INITIAL_TAIL_SIZE = 5;
 
   readonly position: XYPosition = {
     x: 10,

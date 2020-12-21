@@ -1,26 +1,49 @@
 export class Stage {
   readonly gridSize = 20;
 
-  readonly ctx: CanvasRenderingContext2D;
+  canvasSize = 0;
 
-  readonly width: number;
+  rectangleSize = 0;
 
-  readonly height: number;
-
-  constructor(public readonly canvasElement: HTMLCanvasElement) {
-    this.ctx = canvasElement.getContext('2d') as CanvasRenderingContext2D;
-    this.width = canvasElement.width;
-    this.height = canvasElement.height;
+  private get ctx() {
+    return this.canvasElement.getContext('2d') as CanvasRenderingContext2D;
   }
 
+  constructor(public readonly canvasElement: HTMLCanvasElement) {
+    this.calculateSizes();
+    let timeoutId = 0;
+
+    window.addEventListener('resize', () => {
+      clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(this.calculateSizes, 150);
+    });
+  }
+
+  private calculateSizes = () => {
+    const parent = this.canvasElement.parentElement as HTMLDivElement;
+    const { clientHeight, clientWidth } = parent;
+    let smallerSize = clientHeight < clientWidth ? clientHeight : clientWidth;
+
+    if (smallerSize < 300) {
+      smallerSize = 300;
+    }
+
+    this.rectangleSize = Math.floor(smallerSize / this.gridSize);
+
+    this.canvasSize = this.rectangleSize * this.gridSize;
+    this.canvasElement.width = this.canvasSize;
+    this.canvasElement.height = this.canvasSize;
+  };
+
   clear = (): void => {
-    this.ctx.fillStyle = 'black';
-    this.ctx.fillRect(0, 0, this.width, this.height);
+    const { ctx, canvasSize } = this;
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvasSize, canvasSize);
   };
 
   private drawRectangle = (x: number, y: number) => {
-    const { ctx, gridSize } = this;
-    ctx.fillRect(x * gridSize, y * gridSize, gridSize - 2, gridSize - 2);
+    const { ctx, rectangleSize } = this;
+    ctx.fillRect(x * rectangleSize, y * rectangleSize, rectangleSize - 2, rectangleSize - 2);
   };
 
   drawStep = (x: number, y: number): void => {

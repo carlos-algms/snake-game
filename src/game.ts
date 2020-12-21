@@ -6,11 +6,11 @@ import { Stage } from './Stage';
 const intervalMs = 1000 / 9;
 
 export default function game(): void {
-  const canvasEl = document.getElementById('gc') as HTMLCanvasElement;
-
+  const canvasEl = document.getElementById('app-canvas') as HTMLCanvasElement;
   const stage = new Stage(canvasEl);
   const player = new Player();
   const item = new Item();
+
   item.moveRandom(stage.gridSize);
 
   // TODO should be possible to increase the game speed by changing the interval value
