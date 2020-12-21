@@ -19,9 +19,9 @@ const webpackFactory = (envFlags, argv) => {
     },
     output: {
       path: `${__dirname}/public`,
-      filename: '[name]-[contenthash].js',
+      filename: isProduction ? '[name]-[contenthash].js' : '[name].js',
     },
-    devtool: isProduction ? 'source-map' : 'eval-cheap-source-map',
+    devtool: 'source-map',
     plugins: [
       new HtmlWebpackPlugin({
         title: 'Snake Game',
