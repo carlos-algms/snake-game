@@ -15,6 +15,7 @@ const options = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:prettier/recommended',
     'prettier/@typescript-eslint',
+    'plugin:import/typescript',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -31,6 +32,8 @@ const options = {
   rules: {
     'no-use-before-define': ['error', { functions: false, classes: true }],
     'no-plusplus': 'off',
+    'import/prefer-default-export': 'off',
+    'import/extensions': 'off',
   },
   overrides: [
     {
