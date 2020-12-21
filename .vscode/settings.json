@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.packageManager": "npm",
+  "prettier.packageManager": "npm",
+  "npm.packageManager": "npm"
+}

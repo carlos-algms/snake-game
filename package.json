@@ -1,0 +1,32 @@
+{
+  "name": "snake-game",
+  "version": "0.0.0",
+  "description": "Create a clone of the famous game before smartphones were a thing.",
+  "scripts": {
+    "prebuild": "rimraf public/**/*.{js,map}",
+    "build": "tsc --project tsconfig.prod.json",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'"
+  },
+  "keywords": [
+    "game",
+    "snake"
+  ],
+  "author": {
+    "name": "Carlos Gomes",
+    "email": "carlos.algms@gmail.com",
+    "url": "https://github.com/carlos-algms"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.3"
+  }
+}

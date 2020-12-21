@@ -4,6 +4,7 @@
 /dist
 /.temp
 /public/**/*.js
+/public/**/*.map
 
 
 # Mac files
