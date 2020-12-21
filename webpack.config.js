@@ -3,6 +3,7 @@
 // @ts-check
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 /**
  * @param {WebpackEnvFlags} envFlags
@@ -29,6 +30,7 @@ const webpackFactory = (envFlags, argv) => {
         template: `${__dirname}/src/index.html`,
         chunks: ['index'],
       }),
+      new MiniCssExtractPlugin(),
     ].filter(Boolean),
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
@@ -36,7 +38,7 @@ const webpackFactory = (envFlags, argv) => {
     module: {
       rules: [
         {
-          test: /\.m?[jt]sx?$/,
+          test: /\.m?[jt]sx?$/i,
           exclude: /(node_modules)/,
           use: {
             loader: 'ts-loader',
@@ -44,6 +46,10 @@ const webpackFactory = (envFlags, argv) => {
               configFile: isProduction ? 'tsconfig.prod.json' : 'tsconfig.json',
             },
           },
+        },
+        {
+          test: /\.css$/i,
+          use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
       ],
     },

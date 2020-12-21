@@ -6,5 +6,6 @@
   "eslint.packageManager": "npm",
   "prettier.packageManager": "npm",
   "npm.packageManager": "npm",
-  "liveServer.settings.root": "/public/"
+  "liveServer.settings.root": "/public/",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

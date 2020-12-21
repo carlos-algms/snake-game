@@ -1,0 +1,14 @@
+.app-main {
+  min-height: 99.9vh;
+  max-height: 99.9vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+}
+/*
+.app-canvas {
+  flex: 1 1 auto;
+} */
