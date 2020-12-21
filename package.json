@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Create a clone of the famous game before smartphones were a thing.",
   "scripts": {
+    "dev": "tsc --watch",
     "prebuild": "rimraf public/**/*.{js,map}",
     "build": "tsc --project tsconfig.prod.json",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'"
