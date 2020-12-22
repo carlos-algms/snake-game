@@ -98,9 +98,4 @@ export class Player {
 
     return position;
   };
-
-  hitsItself = (step: XYPosition): boolean => {
-    const { x, y } = this.position;
-    return step.x === x && step.y === y;
-  };
 }

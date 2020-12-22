@@ -20,7 +20,7 @@ export class Game {
     this.stage.drawStep(this.player.position);
   }
 
-  tick = (): void => {
+  tick(): void {
     const { stage, player, item } = this;
 
     stage.clear();
@@ -29,7 +29,7 @@ export class Game {
     player.trail.forEach((step) => {
       stage.drawStep(step);
 
-      if (player.hitsItself(step)) {
+      if (this.checkHit(step, player.position)) {
         // TODO game over ?
         player.tailSize = Player.INITIAL_TAIL_SIZE;
       }
@@ -41,16 +41,21 @@ export class Game {
       player.trail.shift();
     }
 
-    if (stage.playerHitItem(player.position, item.position)) {
+    if (this.checkHit(player.position, item.position)) {
       player.tailSize++;
       item.moveRandom(stage.gridSize);
     }
 
     stage.drawItem(item.position);
-  };
+  }
 
-  keyPressed = (evt: KeyboardEvent): void => {
+  // eslint-disable-next-line class-methods-use-this
+  private checkHit(posA: XYPosition, posB: XYPosition): boolean {
+    return posA.x === posB.x && posA.y === posB.y;
+  }
+
+  keyPressed(evt: KeyboardEvent): void {
     const direction = eventCodeToDirection(evt.key ?? evt.code);
     this.player.changeFacingDirection(direction);
-  };
+  }
 }

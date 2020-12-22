@@ -59,8 +59,4 @@ export class StageCanvas {
     this.ctx.fillStyle = 'red';
     this.drawRectangle(x, y);
   };
-
-  playerHitItem = (playerPos: XYPosition, itemPos: XYPosition): boolean => {
-    return itemPos.x === playerPos.x && itemPos.y === playerPos.y;
-  };
 }
