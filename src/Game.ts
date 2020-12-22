@@ -1,21 +1,19 @@
 import { eventCodeToDirection } from './Direction';
 import { Item } from './Item';
 import { Player } from './Player';
-import { Stage } from './Stage';
+import { StageCanvas } from './Stage/StageCanvas';
 
 export class Game {
   player: Player;
 
-  stage: Stage;
+  stage: StageCanvas;
 
   item: Item;
 
   constructor() {
-    const canvasElement = document.getElementById('app-canvas') as HTMLCanvasElement;
-
     this.player = new Player();
     this.item = new Item();
-    this.stage = new Stage(canvasElement);
+    this.stage = new StageCanvas();
 
     this.item.moveRandom(this.stage.gridSize);
     this.stage.drawItem(this.item.position);

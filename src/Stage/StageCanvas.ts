@@ -1,5 +1,7 @@
-export class Stage {
+export class StageCanvas {
   readonly gridSize = 20;
+
+  readonly canvasElement: HTMLCanvasElement;
 
   canvasSize = 0;
 
@@ -9,7 +11,8 @@ export class Stage {
     return this.canvasElement.getContext('2d') as CanvasRenderingContext2D;
   }
 
-  constructor(public readonly canvasElement: HTMLCanvasElement) {
+  constructor() {
+    this.canvasElement = document.getElementById('app-canvas') as HTMLCanvasElement;
     this.calculateSizes();
     let timeoutId = 0;
     this.clear();
