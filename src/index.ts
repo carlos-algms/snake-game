@@ -1,8 +1,8 @@
-import game from './game';
+import main from './main';
 
 import 'reset-css';
 import './styles.css';
 
-game();
+main();
 
 export default null;
