@@ -12,6 +12,7 @@ export class Stage {
   constructor(public readonly canvasElement: HTMLCanvasElement) {
     this.calculateSizes();
     let timeoutId = 0;
+    this.clear();
 
     window.addEventListener('resize', () => {
       clearTimeout(timeoutId);
@@ -46,12 +47,12 @@ export class Stage {
     ctx.fillRect(x * rectangleSize, y * rectangleSize, rectangleSize - 2, rectangleSize - 2);
   };
 
-  drawStep = (x: number, y: number): void => {
+  drawStep = ({ x, y }: XYPosition): void => {
     this.ctx.fillStyle = 'lime';
     this.drawRectangle(x, y);
   };
 
-  drawItem = (x: number, y: number): void => {
+  drawItem = ({ x, y }: XYPosition): void => {
     this.ctx.fillStyle = 'red';
     this.drawRectangle(x, y);
   };
