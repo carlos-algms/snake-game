@@ -10,6 +10,8 @@ export class Player {
 
   private facingDirection: Direction | null = null;
 
+  private justMovedDirection = false;
+
   /**
    * Holds in which direction the player is facing
    */
@@ -22,16 +24,14 @@ export class Player {
 
   trail: XYPosition[] = [];
 
-  changeFacingDirection = (direction: Direction | null): void => {
+  changeFacingDirection = (direction: Direction | null, gridSize: number): boolean => {
     if (direction === null || direction === this.facingDirection) {
-      return;
+      return false;
     }
 
     if (!this.isDirectionChangePossible(direction)) {
-      return;
+      return false;
     }
-
-    this.facingDirection = direction;
 
     // TODO check if it is possible to change to the desired direction
     switch (direction) {
@@ -54,24 +54,41 @@ export class Player {
       default:
         break;
     }
+
+    this.facingDirection = direction;
+    this.justMovedDirection = true;
+    this.move(gridSize);
+
+    return true;
   };
 
   private isDirectionChangePossible = (direction: Direction) => {
-    const { facingDirection: currentDirection } = this;
+    const { facingDirection } = this;
 
-    if (currentDirection === null) {
+    if (facingDirection === null) {
       return true;
     }
 
     if (direction === Direction.Up || direction === Direction.Down) {
-      return currentDirection === Direction.Left || currentDirection === Direction.Right;
+      return facingDirection === Direction.Left || facingDirection === Direction.Right;
     }
 
-    return currentDirection === Direction.Up || currentDirection === Direction.Down;
+    return facingDirection === Direction.Up || facingDirection === Direction.Down;
   };
 
   moveOffset = (gridSize: number): XYPosition => {
+    if (this.justMovedDirection) {
+      this.justMovedDirection = false;
+      return this.position;
+    }
+
+    return this.move(gridSize);
+  };
+
+  private move(gridSize: number) {
     const { position, offset } = this;
+
+    this.maintainTrail();
 
     if (offset.x || offset.y) {
       position.x += offset.x;
@@ -97,5 +114,15 @@ export class Player {
     // TODO maybe a good place for check for hits
 
     return position;
-  };
+  }
+
+  private maintainTrail(): void {
+    const { trail, tailSize, position } = this;
+
+    trail.push({ ...position });
+
+    while (trail.length > tailSize) {
+      trail.shift();
+    }
+  }
 }

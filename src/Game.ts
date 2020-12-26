@@ -10,43 +10,54 @@ export class Game {
 
   item: Item;
 
+  isMoving = false;
+
   constructor() {
+    this.stage = new StageCanvas();
     this.player = new Player();
     this.item = new Item();
-    this.stage = new StageCanvas();
 
     this.item.moveRandom(this.stage.gridSize);
     this.stage.drawItem(this.item.position);
     this.stage.drawStep(this.player.position);
   }
 
+  keyPressed(evt: KeyboardEvent): void {
+    const direction = eventCodeToDirection(evt.key ?? evt.code);
+    if (this.player.changeFacingDirection(direction, this.stage.gridSize)) {
+      this.isMoving = true;
+      this.checkForHits();
+      this.draw();
+    }
+  }
+
   tick(): void {
+    if (this.isMoving) {
+      this.movePlayer();
+      this.checkForHits();
+      this.draw();
+    }
+  }
+
+  private movePlayer() {
+    const { stage, player } = this;
+    player.moveOffset(stage.gridSize);
+  }
+
+  private checkForHits() {
     const { stage, player, item } = this;
 
-    stage.clear();
-    player.moveOffset(stage.gridSize);
-
     player.trail.forEach((step) => {
-      stage.drawStep(step);
-
       if (this.checkHit(step, player.position)) {
         // TODO game over ?
         player.tailSize = Player.INITIAL_TAIL_SIZE;
       }
     });
 
-    player.trail.push({ x: player.position.x, y: player.position.y });
-
-    while (player.trail.length > player.tailSize) {
-      player.trail.shift();
-    }
-
     if (this.checkHit(player.position, item.position)) {
       player.tailSize++;
       item.moveRandom(stage.gridSize);
     }
-
-    stage.drawItem(item.position);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -54,8 +65,10 @@ export class Game {
     return posA.x === posB.x && posA.y === posB.y;
   }
 
-  keyPressed(evt: KeyboardEvent): void {
-    const direction = eventCodeToDirection(evt.key ?? evt.code);
-    this.player.changeFacingDirection(direction);
+  private draw() {
+    const { stage, player, item } = this;
+    stage.clear();
+    player.trail.forEach((step) => stage.drawStep(step));
+    stage.drawItem(item.position);
   }
 }

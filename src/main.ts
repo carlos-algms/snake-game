@@ -1,6 +1,6 @@
 import { Game } from './Game';
 
-const intervalMs = 1000 / 9;
+const intervalMs = 1000 / 10;
 
 export default function main(): void {
   const game = new Game();
