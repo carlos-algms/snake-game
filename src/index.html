@@ -6,6 +6,7 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 
     <% if (htmlWebpackPlugin.options.env.isProduction) { %>
+    <!-- https://support.cookiebot.com/hc/en-us/articles/360003979074-Using-Google-Gtag-with-Cookiebot */ -->
     <script
       id="Cookiebot"
       src="https://consent.cookiebot.com/uc.js"
@@ -13,15 +14,30 @@
       data-blockingmode="auto"
       type="text/javascript"
     ></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CN8W808DT7"></script>
-    <script>
+
+    <script data-cookieconsent="ignore">
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag('js', new Date());
 
+      gtag('consent', 'default', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        wait_for_update: 500,
+      });
+
+      gtag('set', 'ads_data_redaction', true);
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-CN8W808DT7"
+      data-cookieconsent="ignore"
+    ></script>
+
+    <script data-cookieconsent="ignore">
+      gtag('js', new Date());
       gtag('config', 'G-CN8W808DT7');
     </script>
     <% } %>
