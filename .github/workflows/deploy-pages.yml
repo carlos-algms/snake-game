@@ -7,7 +7,22 @@ jobs:
   deploy-gh-pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            **/node_modules
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: prepare
         run: |
@@ -15,26 +30,9 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@bots.github.com"
 
-      - uses: actions/setup-node
-        with:
-          node-version: 12
+      - run: npm install
 
-      - uses: actions/cache
-        with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
-      - name: install
-        run: |
-          npm install
-
-      - name: build
-        run: |
-          npm run build
+      - run: npm run build
 
       - name: Deploy
         env:
