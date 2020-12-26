@@ -43,4 +43,4 @@ jobs:
           git remote add origin "https://x-access-token:${DEPLOY_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git add .
           git commit -m "Publish pages - $(date)"
-          git push --set-upstream origin gh-pages -f
+          git push --set-upstream origin master:gh-pages -f
