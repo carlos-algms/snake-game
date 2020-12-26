@@ -1,0 +1,45 @@
+name: Deploy Github Pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy-gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout
+
+      - prepare: |
+          cd "$GITHUB_WORKSPACE"
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@bots.github.com"
+
+      - uses: actions/setup-node
+        with:
+          node-version: 12
+
+      - uses: actions/cache
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - install: |
+          npm install
+
+      - build: |
+          npm run build
+
+      - name: Deploy
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          cd public/
+          git init
+          git remote add origin "https://x-access-token:${DEPLOY_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add .
+          git commit -m "Publish pages - $(date)"
+          git push origin gh-pages -f
