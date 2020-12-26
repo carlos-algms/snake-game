@@ -11,6 +11,30 @@ body {
   flex-direction: column;
 }
 
+.app-header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.score-display {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.score-display__label {
+  padding: 8px 16px;
+}
+
+.score-display__counter {
+  padding: 8px 16px;
+  border-left: 1px solid #ccc;
+  background: #efefef;
+}
+
 .canvas-wrapper {
   flex: 1 1 auto;
 }
