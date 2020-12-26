@@ -29,6 +29,10 @@ const webpackFactory = (envFlags, argv) => {
         filename: 'index.html',
         template: `${__dirname}/src/index.html`,
         chunks: ['index'],
+        env: {
+          ...process.env,
+          isProduction,
+        },
       }),
       new MiniCssExtractPlugin(),
     ].filter(Boolean),
