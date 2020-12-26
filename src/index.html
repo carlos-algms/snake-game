@@ -6,6 +6,13 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 
     <% if (htmlWebpackPlugin.options.env.isProduction) { %>
+    <script
+      id="Cookiebot"
+      src="https://consent.cookiebot.com/uc.js"
+      data-cbid="c29f298c-6b4e-41e0-9186-51d7deea03de"
+      data-blockingmode="auto"
+      type="text/javascript"
+    ></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CN8W808DT7"></script>
     <script>
@@ -50,5 +57,14 @@
         </section>
       </footer>
     </main>
+
+    <% if (htmlWebpackPlugin.options.env.isProduction) { %>
+    <script
+      id="CookieDeclaration"
+      src="https://consent.cookiebot.com/c29f298c-6b4e-41e0-9186-51d7deea03de/cd.js"
+      type="text/javascript"
+      async
+    ></script>
+    <% } %>
   </body>
 </html>
