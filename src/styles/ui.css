@@ -1,6 +1,7 @@
 html,
 body {
   font-family: 'Roboto', sans-serif;
+  color: #444;
 }
 
 .app-main {
@@ -42,4 +43,27 @@ body {
 .app-canvas {
   margin: 0 auto;
   display: block;
+}
+
+.app-footer {
+  border-top: 1px solid #eee;
+  padding: 16px;
+  color: inherit;
+  display: flex;
+  justify-content: space-around;
+}
+
+.app-footer a {
+  color: inherit;
+}
+
+@media (max-width: 460px) {
+  .app-footer {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .app-footer > section:first-child {
+    margin-bottom: 16px;
+  }
 }

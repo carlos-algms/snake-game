@@ -1,7 +1,7 @@
 import main from './main';
 
-import 'reset-css';
-import './styles.css';
+import './styles/reset.css';
+import './styles/ui.css';
 
 main();
 
