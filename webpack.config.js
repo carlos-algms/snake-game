@@ -4,6 +4,7 @@
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 /**
  * @param {WebpackEnvFlags} envFlags
@@ -35,6 +36,9 @@ const webpackFactory = (envFlags, argv) => {
         },
       }),
       new MiniCssExtractPlugin(),
+      new CopyPlugin({
+        patterns: [{ from: 'images/favicon', to: 'images/favicon' }],
+      }),
     ].filter(Boolean),
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
