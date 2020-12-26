@@ -27,8 +27,8 @@ jobs:
       - name: prepare
         run: |
           cd "$GITHUB_WORKSPACE"
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@bots.github.com"
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@bots.github.com"
 
       - run: npm install
 
