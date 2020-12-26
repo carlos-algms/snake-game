@@ -1,6 +1,7 @@
 import { eventCodeToDirection } from './Direction';
 import { Item } from './Item';
 import { Player } from './Player';
+import Score from './Score';
 import { StageCanvas } from './Stage/StageCanvas';
 
 export class Game {
@@ -12,7 +13,7 @@ export class Game {
 
   isMoving = false;
 
-  constructor() {
+  constructor(private readonly score: Score) {
     this.stage = new StageCanvas();
     this.player = new Player();
     this.item = new Item();
@@ -20,10 +21,13 @@ export class Game {
     this.item.moveRandom(this.stage.gridSize);
     this.stage.drawItem(this.item.position);
     this.stage.drawStep(this.player.position);
+
+    score.resetCurrentScore();
   }
 
   keyPressed(evt: KeyboardEvent): void {
     const direction = eventCodeToDirection(evt.key ?? evt.code);
+
     if (this.player.changeFacingDirection(direction, this.stage.gridSize)) {
       this.isMoving = true;
       this.checkForHits();
@@ -45,18 +49,21 @@ export class Game {
   }
 
   private checkForHits() {
-    const { stage, player, item } = this;
+    const { stage, player, item, score } = this;
 
     player.trail.forEach((step) => {
       if (this.checkHit(step, player.position)) {
         // TODO game over ?
         player.tailSize = Player.INITIAL_TAIL_SIZE;
+        score.updateBestScore();
+        score.resetCurrentScore();
       }
     });
 
     if (this.checkHit(player.position, item.position)) {
       player.tailSize++;
       item.moveRandom(stage.gridSize);
+      score.incrementCurrentScore();
     }
   }
 

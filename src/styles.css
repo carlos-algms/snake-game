@@ -1,3 +1,8 @@
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .app-main {
   min-height: 99.9vh;
   position: relative;
