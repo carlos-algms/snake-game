@@ -1,0 +1,113 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section {
+  display: block;
+}
+
+*[hidden] {
+  display: none;
+}
+
+body {
+  line-height: 1;
+}
+
+menu,
+ol,
+ul {
+  list-style: none;
+}
+
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #444;
+}
+
+.app-main {
+  min-height: 99.9vh;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.score-display {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.score-display__label {
+  padding: 8px 16px;
+}
+
+.score-display__counter {
+  padding: 8px 16px;
+  border-left: 1px solid #ccc;
+  background: #efefef;
+}
+
+.canvas-wrapper {
+  flex: 1 1 auto;
+}
+
+.app-canvas {
+  margin: 0 auto;
+  display: block;
+}
+
+.app-footer {
+  border-top: 1px solid #eee;
+  padding: 16px;
+  color: inherit;
+  display: flex;
+  justify-content: space-around;
+}
+
+.app-footer a {
+  color: inherit;
+}
+
+@media (max-width: 460px) {
+  .app-footer {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .app-footer > section:first-child {
+    margin-bottom: 16px;
+  }
+}
+
+
+/*# sourceMappingURL=index.css.map*/
